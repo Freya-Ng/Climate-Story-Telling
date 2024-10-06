@@ -1,0 +1,230 @@
+{
+    "id": "micasa-carbonflux-daygrid-v1",
+    "type": "Collection",
+    "links": [
+        {
+            "rel": "items",
+            "type": "application/geo+json",
+            "href": "https://earth.gov/ghgcenter/api/stac/collections/micasa-carbonflux-daygrid-v1/items"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/"
+        },
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/collections/micasa-carbonflux-daygrid-v1"
+        }
+    ],
+    "title": "(Daily) MiCASA Land Carbon Flux v1",
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -180,
+                    -90,
+                    179.99999999999994,
+                    90
+                ]
+            ]
+        },
+        "temporal": {
+            "interval": [
+                [
+                    "2001-01-01 00:00:00+00",
+                    "2023-12-31 00:00:00+00"
+                ]
+            ]
+        }
+    },
+    "license": "CC0-1.0",
+    "renders": {
+        "rh": {
+            "assets": [
+                "rh"
+            ],
+            "rescale": [
+                [
+                    0,
+                    8
+                ]
+            ],
+            "colormap_name": "purd"
+        },
+        "nbe": {
+            "assets": [
+                "nbe"
+            ],
+            "rescale": [
+                [
+                    0,
+                    8
+                ]
+            ],
+            "colormap_name": "purd"
+        },
+        "nee": {
+            "assets": [
+                "nee"
+            ],
+            "rescale": [
+                [
+                    -4,
+                    4
+                ]
+            ],
+            "colormap_name": "coolwarm"
+        },
+        "npp": {
+            "assets": [
+                "npp"
+            ],
+            "rescale": [
+                [
+                    0,
+                    8
+                ]
+            ],
+            "colormap_name": "purd"
+        },
+        "atmc": {
+            "assets": [
+                "atmc"
+            ],
+            "rescale": [
+                [
+                    0,
+                    8
+                ]
+            ],
+            "colormap_name": "purd"
+        },
+        "fire": {
+            "assets": [
+                "fire"
+            ],
+            "rescale": [
+                [
+                    0,
+                    8
+                ]
+            ],
+            "colormap_name": "purd"
+        },
+        "fuel": {
+            "assets": [
+                "fuel"
+            ],
+            "rescale": [
+                [
+                    0,
+                    0.5
+                ]
+            ],
+            "colormap_name": "purd"
+        },
+        "dashboard": {
+            "assets": [
+                "npp"
+            ],
+            "rescale": [
+                [
+                    0,
+                    8
+                ]
+            ],
+            "colormap_name": "purd"
+        }
+    },
+    "providers": [
+        {
+            "name": "NASA"
+        }
+    ],
+    "summaries": {
+        "datetime": [
+            "2001-01-01T00:00:00Z",
+            "2023-12-31T00:00:00Z"
+        ]
+    },
+    "description": "This product provides estimated daily carbon flux to the atmosphere from net primary production (NPP), heterotrophic respiration (Rh), wildfire emissions (FIRE), fuel wood burning emissions (FUEL), net ecosystem exchange (NEE), and net biosphere exchange (NBE) derived from the M\u00e1s Informada Carnegie-Ames-Stanford-Approach (MiCASA) model. All model calculations are driven by analyzed meteorological data from NASA's Modern-Era Retrospective analysis for Research and Application, Version 2 (MERRA-2). The resulting product provides global, daily data at 0.1 degree resolution starting from January 2001. The carbon flux variables are expressed in units of kilograms of carbon per square meter per day. MiCASA is an extensive revision of the CASA \u2013 Global Fire Emissions Database, version 3 (CASA-GFED3) product. CASA-GFED3 and earlier versions of MERRA-driven CASA-GFED carbon fluxes have been used in several atmospheric carbon dioxide (CO\u2082) transport studies, serve as a community standard for priors of flux inversion systems, and through the support of NASA's Carbon Monitoring System (CMS), help characterize, quantify, understand and predict the evolution of global carbon sources and sinks.",
+    "item_assets": {
+        "rh": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Heterotrophic respiration (Rh), MiCASA Model v1",
+            "description": "Heterotrophic respiration (carbon flux from the soil to the atmosphere) in units of grams of carbon per square meter per day."
+        },
+        "nbe": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Net Biosphere Exchange (net carbon flux from the ecosystem), MiCASA Model v1",
+            "description": "Net Biosphere Exchange (net carbon flux from the ecosystem) in units of grams of carbon per square meter per day."
+        },
+        "nee": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Net Ecosystem Exchange (NEE), MiCASA Model v1",
+            "description": "Net Ecosystem Exchange (net carbon flux to the atmosphere) in units of grams of carbon per square meter per day."
+        },
+        "npp": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Net Primary Production (NPP), MiCASA Model v1",
+            "description": "Net Primary Production (carbon available from plants) in units of grams of carbon per square meter per day."
+        },
+        "atmc": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Atmospheric Correction (ATMC), MiCASA Model v1",
+            "description": "A correction to account for long-term historical changes in the uptake of CO\u2082 from the atmosphere to the biosphere in units of grams of carbon per square meter per day."
+        },
+        "fire": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Fire emissions (FIRE), MiCASA Model v1",
+            "description": "Fire emissions (flux of carbon to the atmosphere from wildfires) in units of grams of carbon per square meter per day."
+        },
+        "fuel": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Wood fuel emissions (FUEL), MiCASA Model v1",
+            "description": "Wood fuel emissions (flux of carbon to the atmosphere from wood burned for fuel) in units of grams of carbon per square meter per day."
+        }
+    },
+    "stac_version": "1.0.0",
+    "stac_extensions": [
+        "https://stac-extensions.github.io/render/v1.0.0/schema.json",
+        "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json"
+    ],
+    "dashboard:is_periodic": true,
+    "dashboard:time_density": "day"
+}

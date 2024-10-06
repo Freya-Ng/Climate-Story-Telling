@@ -68,6 +68,14 @@ def visualize_fossil_fuel_co2_tracker(experiment):
         # Display the first plot
         st.pyplot(plt)
 
+        # Explanation for the first chart
+        st.markdown(f"""
+        **Explanation: CO₂ Change Over Time (Line Chart)**
+        - **What the data means**: This chart shows how the CO₂ emissions change over time for {country_name} in the {experiment} experiment.
+        - **Is the change good or not?**: A decrease in CO₂ emissions is generally good, as it indicates less emissions, which helps mitigate climate change.
+        - **What happens when it changes**: If the emissions increase, it could worsen climate conditions, while a decrease helps reduce the impact on climate change.
+        """)
+
     # Enhanced Carbon Budget visualization using Seaborn
     st.header(f'Enhanced Carbon Budget for {country_name} (Multiple Years)')
 
@@ -95,3 +103,20 @@ def visualize_fossil_fuel_co2_tracker(experiment):
 
     # Display the second plot
     st.pyplot(plt)
+
+    # Explanation for the second chart
+    st.markdown(f"""
+    **Explanation: Enhanced Carbon Budget (Bar Chart)**
+    - **What the data means**: This chart shows the distribution of CO₂ emissions from various sources for {country_name} over multiple years.
+    - **Is the change good or not?**: A reduction in fossil fuel emissions is good, while an increase in emissions from natural components like wood and crops might indicate unsustainable practices.
+    - **What happens when it changes**: If fossil fuel emissions increase, it contributes to higher global carbon levels, impacting the environment negatively.
+    """)
+
+# Streamlit application
+def main():
+    st.title("Fossil Fuel CO₂ Tracker")
+    experiment = st.sidebar.selectbox('Select Experiment', ['IS', 'LNLG', 'LNLGIS', 'LNLGOGIS'])
+    visualize_fossil_fuel_co2_tracker(experiment)
+
+if __name__ == "__main__":
+    main()

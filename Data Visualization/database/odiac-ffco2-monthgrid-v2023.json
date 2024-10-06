@@ -1,0 +1,109 @@
+{
+    "id": "odiac-ffco2-monthgrid-v2023",
+    "type": "Collection",
+    "links": [
+        {
+            "rel": "items",
+            "type": "application/geo+json",
+            "href": "https://earth.gov/ghgcenter/api/stac/collections/odiac-ffco2-monthgrid-v2023/items"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/"
+        },
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/collections/odiac-ffco2-monthgrid-v2023"
+        }
+    ],
+    "title": "ODIAC Fossil Fuel CO\u2082 Emissions v2023",
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -180,
+                    -90,
+                    180,
+                    90
+                ]
+            ]
+        },
+        "temporal": {
+            "interval": [
+                [
+                    "2000-01-01 00:00:00+00",
+                    "2022-12-31 00:00:00+00"
+                ]
+            ]
+        }
+    },
+    "license": "CC-BY-4.0",
+    "renders": {
+        "dashboard": {
+            "assets": [
+                "co2-emissions"
+            ],
+            "rescale": [
+                [
+                    -10,
+                    60
+                ]
+            ],
+            "colormap_name": "jet"
+        },
+        "co2-emissions": {
+            "assets": [
+                "co2-emissions"
+            ],
+            "rescale": [
+                [
+                    -10,
+                    60
+                ]
+            ],
+            "colormap_name": "jet"
+        }
+    },
+    "providers": [
+        {
+            "url": "https://www.nies.go.jp",
+            "name": "National Institute for Environmental Studies",
+            "roles": [
+                "producer",
+                "licensor"
+            ]
+        }
+    ],
+    "summaries": {
+        "datetime": [
+            "2000-01-01T00:00:00Z",
+            "2022-12-31T00:00:00Z"
+        ]
+    },
+    "description": "The Open-source Data Inventory for Anthropogenic CO\u2082 (ODIAC) data product is a monthly high-resolution global data product of modeled fossil fuel carbon dioxide (CO\u2082) emissions. A complex model incorporates and combines space-based nighttime light data and individual power plant emission/location profiles from the latest country fossil fuel CO\u2082 estimates (2000-2019) made by the Carbon Dioxide Information Analysis Center (CDIAC) team at the Appalachian State University (CDIAC at AppState, Gilfillan et al. 2021, Hefner et al. 2022). The ODIAC estimated global spatial extent of fossil fuel CO\u2082 emissions is produced on a 1 km by 1 km grid that details variations in urban regions where emissions are most intense. The ODIAC CO\u2082 emission data is widely used by the international research community for applications such as CO\u2082 flux inversion, urban emission estimation, and observing system design experiments. The ODIAC product was first created in 2009 by Dr. Tomohiro Oda with support from the National Institute for Environmental Studies (NIES) GOSAT project. The ODIAC team is now supported by NASA Goddard Space Flight Center, NASA Carbon Monitoring System program, the NASA Orbiting Carbon Observatory mission and NIES. The US GHG Center displays the ODIAC 2023 version containing monthly data from January 2000 to December 2022 that replaces all previous versions. The source dataset can be found at https://doi.org/10.17595/20170411.001",
+    "item_assets": {
+        "co2-emissions": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Fossil Fuel CO\u2082 Emissions",
+            "description": "Model-estimated monthly, 1 km resolution CO\u2082 emissions from fossil fuel combustion, cement production and gas flaring created using space-based nighttime light data and individual power plant emission/location profiles."
+        }
+    },
+    "stac_version": "1.0.0",
+    "stac_extensions": [
+        "https://stac-extensions.github.io/render/v1.0.0/schema.json",
+        "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json"
+    ],
+    "dashboard:is_periodic": true,
+    "dashboard:time_density": "month"
+}
