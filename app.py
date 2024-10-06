@@ -1,7 +1,29 @@
 import os
 import streamlit as st
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 import sys
 import importlib.util
+from openai import OpenAI  # Import OpenAI class
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the API key from environment variable
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Initialize the OpenAI client
+client = OpenAI(api_key=api_key)
+
+# Set the default encoding to utf-8 for printing (for systems supporting it)
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception as e:
+        st.error(f"Error setting stdout encoding: {e}")
 
 # Set the correct paths for the files
 visual_path = r'.\visual'
@@ -31,13 +53,6 @@ spec_land_c_flow.loader.exec_module(land_c_flow)
 spec_co2_btw_air_ocean = importlib.util.spec_from_file_location("co2_btw_air_ocean", os.path.join(visual_path, 'co2-btw-air-&-ocean.py'))
 co2_btw_air_ocean = importlib.util.module_from_spec(spec_co2_btw_air_ocean)
 spec_co2_btw_air_ocean.loader.exec_module(co2_btw_air_ocean)
-
-# Set the default encoding to utf-8 for printing (for systems supporting it)
-if hasattr(sys.stdout, "reconfigure"):
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception as e:
-        st.error(f"Error setting stdout encoding: {e}")
 
 # Experiment list with full names for better understanding
 experiment_full_names = {
@@ -73,39 +88,85 @@ database_list = [
 selected_database = st.sidebar.selectbox('Select Database', database_list)
 
 # Show the charts based on the selected database
-if selected_database == "CO₂ in the Air":
-    # Check if the required functions exist in the module
-    if hasattr(co2_in_the_air, 'plot_co2_growth_rate') and hasattr(co2_in_the_air, 'plot_co2_vs_temperature') and hasattr(co2_in_the_air, 'plot_co2_by_region'):
-        co2_in_the_air.plot_co2_growth_rate()
-        co2_in_the_air.plot_co2_vs_temperature()
-        co2_in_the_air.plot_co2_by_region()
-    else:
-        st.error("The 'co2_in_the_air' module does not have the required visualization functions.")
+def show_charts_for_database(database, experiment):
+    if database == "CO₂ in the Air":
+        # Check if the required functions exist in the module
+        if hasattr(co2_in_the_air, 'plot_co2_growth_rate') and hasattr(co2_in_the_air, 'plot_co2_vs_temperature') and hasattr(co2_in_the_air, 'plot_co2_by_region'):
+            co2_in_the_air.plot_co2_growth_rate()
+            co2_in_the_air.plot_co2_vs_temperature()
+            co2_in_the_air.plot_co2_by_region()
+        else:
+            st.error("The 'co2_in_the_air' module does not have the required visualization functions.")
 
-elif selected_database == "Space CO₂ Budget":
-    # Call the visualization function from space-co2-budget module
-    if hasattr(space_co2_budget, 'visualize_fossil_fuel_co2_tracker'):
-        space_co2_budget.visualize_fossil_fuel_co2_tracker(experiment)
-    else:
-        st.error("The 'space_co2_budget' module does not have the required visualization function.")
+    elif database == "Space CO₂ Budget":
+        # Call the visualization function from space-co2-budget module
+        if hasattr(space_co2_budget, 'visualize_fossil_fuel_co2_tracker'):
+            space_co2_budget.visualize_fossil_fuel_co2_tracker(experiment)
+        else:
+            st.error("The 'space_co2_budget' module does not have the required visualization function.")
 
-elif selected_database == "Fossil Fuel CO₂ Tracker":
-    # Call the visualization functions from fossil-fuel-co2-emissions module
-    if hasattr(fossil_fuel_co2_emissions, 'plot_fossil_fuel_emissions'):
-        fossil_fuel_co2_emissions.plot_fossil_fuel_emissions()
-    else:
-        st.error("The 'fossil_fuel_co2_emissions' module does not have the required visualization functions.")
+    elif database == "Fossil Fuel CO₂ Tracker":
+        # Call the visualization functions from fossil-fuel-co2-emissions module
+        if hasattr(fossil_fuel_co2_emissions, 'plot_fossil_fuel_emissions'):
+            fossil_fuel_co2_emissions.plot_fossil_fuel_emissions()
+        else:
+            st.error("The 'fossil_fuel_co2_emissions' module does not have the required visualization functions.")
 
-elif selected_database == "Land Carbon Flow":
-    # Call the visualization functions from land-c-flow module
-    if hasattr(land_c_flow, 'plot_land_carbon_flow'):
-        land_c_flow.plot_land_carbon_flow()
-    else:
-        st.error("The 'land_c_flow' module does not have the required visualization functions.")
+    elif database == "Land Carbon Flow":
+        # Call the visualization functions from land-c-flow module
+        if hasattr(land_c_flow, 'plot_land_carbon_flow'):
+            land_c_flow.plot_land_carbon_flow()
+        else:
+            st.error("The 'land_c_flow' module does not have the required visualization functions.")
 
-elif selected_database == "CO₂ Between Air and Ocean":
-    # Call the visualization functions from co2-btw-air-&-ocean module
-    if hasattr(co2_btw_air_ocean, 'plot_co2_flux_visualization'):
-        co2_btw_air_ocean.plot_co2_flux_visualization()
-    else:
-        st.error("The 'co2_btw_air_ocean' module does not have the required visualization functions.")
+    elif database == "CO₂ Between Air and Ocean":
+        # Call the visualization functions from co2-btw-air-&-ocean module
+        if hasattr(co2_btw_air_ocean, 'plot_co2_flux_visualization'):
+            co2_btw_air_ocean.plot_co2_flux_visualization()
+        else:
+            st.error("The 'co2_btw_air_ocean' module does not have the required visualization functions.")
+
+# Display selected charts
+show_charts_for_database(selected_database, experiment)
+
+# GPT Analysis Section
+st.header(f'GPT Analysis for {selected_database}')
+
+# User inputs a question for GPT analysis
+user_question = st.text_input('Ask a question about the data or chart:')
+
+def generate_gpt_analysis(selected_database, experiment, user_question):
+    # Prepare the data context (using placeholder data for simplicity)
+    data_context = f"This is some data context for the selected database: {selected_database}."
+    
+    # Create the prompt
+    prompt = f"""
+    You are a data scientist and climate change expert. The data below shows CO₂ emissions for the selected database ({selected_database}),
+    especially focusing on the experiment ({experiment}).
+
+    {data_context}
+
+    Based on this data, please answer the following question in detail:
+    {user_question}
+    """
+
+    # Make the API request using the OpenAI client
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # Replace with "gpt-4o-mini" if needed
+        messages=[
+            {"role": "system", "content": "You are a climate data expert."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    return response.choices[0].message.content
+
+# Process GPT response if user asks a question
+if user_question:
+    with st.spinner('Processing your question...'):
+        try:
+            analysis = generate_gpt_analysis(selected_database, experiment, user_question)
+            st.subheader('Analysis Result')
+            st.write(analysis)
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
