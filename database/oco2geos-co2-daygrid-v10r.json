@@ -1,0 +1,110 @@
+{
+    "id": "oco2geos-co2-daygrid-v10r",
+    "type": "Collection",
+    "links": [
+        {
+            "rel": "items",
+            "type": "application/geo+json",
+            "href": "https://earth.gov/ghgcenter/api/stac/collections/oco2geos-co2-daygrid-v10r/items"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/"
+        },
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://earth.gov/ghgcenter/api/stac/collections/oco2geos-co2-daygrid-v10r"
+        }
+    ],
+    "title": "OCO-2 GEOS Column CO\u2082 Concentrations v10r",
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -180.0,
+                    -90.0,
+                    180.0,
+                    90.0
+                ]
+            ]
+        },
+        "temporal": {
+            "interval": [
+                [
+                    "2015-01-01T00:00:00+00:00",
+                    "2022-02-28T00:00:00+00:00"
+                ]
+            ]
+        }
+    },
+    "license": "CC0-1.0",
+    "renders": {
+        "xco2": {
+            "assets": [
+                "xco2"
+            ],
+            "nodata": 0,
+            "rescale": [
+                [
+                    412,
+                    422
+                ]
+            ],
+            "colormap_name": "magma"
+        },
+        "dashboard": {
+            "assets": [
+                "xco2"
+            ],
+            "nodata": 0,
+            "rescale": [
+                [
+                    412,
+                    422
+                ]
+            ],
+            "colormap_name": "magma"
+        }
+    },
+    "summaries": {
+        "datetime": [
+            "2015-01-01T00:00:00Z",
+            "2022-02-28T00:00:00Z"
+        ]
+    },
+    "description": "This dataset provides global gridded, daily column-averaged carbon dioxide (XCO\u2082) concentrations from January 1, 2015 - February 28, 2022. The data are derived from Orbiting Carbon Observatory-2 (OCO-2) satellite observations that were input to the Goddard Earth Observing System (GEOS) Constituent Data Assimilation System (CoDAS), a modeling and data assimilation system maintained by NASA\u2019s Global Modeling and Assimilation Office (GMAO). Concentrations are measured in moles of carbon dioxide per mole of dry air (mol CO\u2082/mol dry) at a spatial resolution of 0.5\u00b0 x 0.625\u00b0. Data assimilation synthesizes simulations and observations, adjusting modeled atmospheric constituents like CO\u2082 to reflect observed values. With the support of NASA\u2019s Carbon Monitoring System (CMS) Program and the OCO Science Team, this dataset was produced as part of the OCO-2 mission which provides the highest quality space-based XCO\u2082 retrievals to date. The source data can be found at https://doi.org/10.5067/Y9M4NM9MPCGH",
+    "item_assets": {
+        "xco2": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Average Dry-Air Column CO\u2082 (XCO\u2082)",
+            "description": "Daily dry air column-averaged mole fractions of carbon dioxide created from data assimilations of OCO-2 satellite retrievals."
+        },
+        "xco2prec": {
+            "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+            "roles": [
+                "data",
+                "layer"
+            ],
+            "title": "Average Dry-Air Column CO\u2082 Precision (XCO\u2082PREC)",
+            "description": "Random errors for daily dry air column-averaged mole fractions of carbon dioxide calculated using a posteriori diagnostics."
+        }
+    },
+    "stac_version": "1.0.0",
+    "stac_extensions": [
+        "https://stac-extensions.github.io/render/v1.0.0/schema.json",
+        "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json"
+    ],
+    "dashboard:is_periodic": true,
+    "dashboard:time_density": "day"
+}
